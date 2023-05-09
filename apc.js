@@ -1,6 +1,8 @@
 // Auto Pending Radio Claims
 // @kacper.czapran@medserv.ie
 
+console.clear();
+
 const SYMPTOMS_START = [
     "Indication:",
     "Indication",
