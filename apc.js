@@ -188,7 +188,7 @@ const GENERIC_SYMPTOMS = [
     ["SPINE SACRUM","Sacral pain."],
     ["FISTULA PERIANAL","Fistula."],
     ["ENTEROGRAPHY","Abdominal pain. Concern for small bowel abnormality."],
-    ["PANCREAS","Abdominal pain. Concern for pencreatic abnormality."],
+    ["PANCREAS","Abdominal pain. Concern for pancreatic abnormality."],
     ["SMALL BOWEL","Further investigation of small bowel."],
     ["KIDNEY","Further investigation of kidneys."],
     ["RENAL","Further investigation of renals."],
