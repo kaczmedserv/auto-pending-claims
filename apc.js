@@ -2411,7 +2411,7 @@ if (ALLIANCE_AFFIDEA_RADIOLOGY == 3 && INSURER_SELECTED == 2) {
 
 function addTextToHTML() {
     for (let index = 0; index < SYMPTOMS_FINAL.length; index++) {
-        let r, c, rc;
+        let r, c, rc, code;
 
         if (SYMPTOMS_FINAL[index]) {
             r = document.getElementsByTagName("tr")[POSITION_PRIMARY[index]];
@@ -2438,7 +2438,12 @@ function addTextToHTML() {
             c = r.getElementsByTagName('td')[11];
             rc = c.getElementsByTagName('input')[0];
             if (CODE_PRIMARY[index]) {
-                rc.value = (INSURER_SELECTED == 3) ? CODE_PRIMARY[index] : CODE_PRIMARY[index] + "#";
+                if (INSURER_SELECTED == 3 && ALLIANCE_AFFIDEA_RADIOLOGY != 3) {
+                    code = CODE_PRIMARY[index];
+                } else {
+                    code = CODE_PRIMARY[index] + "#";
+                }
+                rc.value = code;
                 rc.style.backgroundColor = COLOR_PRIMARY[index];
                 rc.style.fontWeight = 'bold';
             }
@@ -2459,7 +2464,12 @@ function addTextToHTML() {
             c = r.getElementsByTagName('td')[2];
             rc = c.getElementsByTagName('input')[0];
             if (CODE_SECONDARY[index]) {
-                rc.value = (INSURER_SELECTED == 3) ? CODE_SECONDARY[index] : CODE_SECONDARY[index] + "#";
+                if (INSURER_SELECTED == 3 && ALLIANCE_AFFIDEA_RADIOLOGY != 3) {
+                    code = CODE_SECONDARY[index];
+                } else {
+                    code = CODE_SECONDARY[index] + "#";
+                }
+                rc.value = code;
                 rc.style.backgroundColor = COLOR_SECONDARY[index];
                 rc.style.fontWeight = 'bold';
             }
