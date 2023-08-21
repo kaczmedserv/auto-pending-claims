@@ -1829,7 +1829,7 @@ function replaceSymptomsBlacklist(MODE) {
                 }
             }
         }
-        if (report?.includes("Lacey") && procedure) {
+        if (report?.includes("Lucey") && procedure) {
             for (let genericSymptom of GENERIC_SYMPTOMS) {
                 if (procedure.toUpperCase().includes(genericSymptom[0])) {
                     SYMPTOMS[index] = genericSymptom[1];
