@@ -1717,11 +1717,11 @@ for (let index = 3; index < PENDING_CLAIMS.length; index++) {
 
 function checkContrast() {
     for (let index = 0; index < PROCEDURE_PRIMARY.length; index++) {
-        CONTRAST_PRIMARY[index] = PROCEDURE_PRIMARY[index]?.toUpperCase().includes("CONTRAST") || PROCEDURE_PRIMARY[index]?.toUpperCase().includes("ORAL") || PROCEDURE_PRIMARY[index]?.toUpperCase().includes("+C");
+        CONTRAST_PRIMARY[index] = PROCEDURE_PRIMARY[index]?.toUpperCase().includes("CONTRAST") || PROCEDURE_PRIMARY[index]?.toUpperCase().includes("ORAL") || PROCEDURE_PRIMARY[index]?.toUpperCase().includes("+C") || PROCEDURE_PRIMARY[index]?.toUpperCase().includes("GADOLINIUM");
     }
 
     for (let index = 0; index < PROCEDURE_SECONDARY.length; index++) {
-        CONTRAST_SECONDARY[index] = PROCEDURE_SECONDARY[index]?.toUpperCase().includes("CONTRAST") || PROCEDURE_SECONDARY[index]?.toUpperCase().includes("ORAL") || PROCEDURE_SECONDARY[index]?.toUpperCase().includes("+C");
+        CONTRAST_SECONDARY[index] = PROCEDURE_SECONDARY[index]?.toUpperCase().includes("CONTRAST") || PROCEDURE_SECONDARY[index]?.toUpperCase().includes("ORAL") || PROCEDURE_SECONDARY[index]?.toUpperCase().includes("+C") || PROCEDURE_SECONDARY[index]?.toUpperCase().includes("GADOLINIUM");
 
     }
 }
@@ -1811,10 +1811,12 @@ function fixNoSymptoms(MODE) {
 function replaceSymptomsBlacklist(MODE) {
     const SYMPTOMS = MODE == 1 ? SYMPTOMS_PRIMARY : SYMPTOMS_SECONDARY;
     const PROCEDURE = MODE == 1 ? PROCEDURE_PRIMARY : PROCEDURE_SECONDARY;
+    const REPORT = MODE == 1 ? REPORT_PRIMARY : REPORT_SECONDARY;
     ADD_NEXT_SYMPTOMS_REPLACE:
     for (let index = 0; index < SYMPTOMS.length; index++) {
         const symptoms = SYMPTOMS[index];
         const procedure = PROCEDURE[index];
+        const report = REPORT[index];
         if (symptoms && procedure) {
             for (let blacklist of BLACKLIST_REPLACE_SYMPTOMS_OR_DIAGNOSIS) {
                 if (symptoms.toUpperCase() === blacklist || (symptoms.includes(":") && !PROCEDURE_PRIMARY[index].includes("PET"))) {
@@ -1826,7 +1828,15 @@ function replaceSymptomsBlacklist(MODE) {
                     }
                 }
             }
-        }   
+        }
+        if (report?.includes("Lucey") && procedure) {
+            for (let genericSymptom of GENERIC_SYMPTOMS) {
+                if (procedure.toUpperCase().includes(genericSymptom[0])) {
+                    SYMPTOMS[index] = genericSymptom[1];
+                    continue ADD_NEXT_SYMPTOMS_REPLACE;
+                }
+            }
+        }
     }
 }
 
